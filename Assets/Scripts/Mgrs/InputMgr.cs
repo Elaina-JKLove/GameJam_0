@@ -9,8 +9,6 @@ public class InputMgr : MonoSingleton<InputMgr>
 {
     InputActions inputActions;
 
-
-
     void Awake() => inputActions = new InputActions();
 
     void OnEnable()
@@ -20,6 +18,7 @@ public class InputMgr : MonoSingleton<InputMgr>
         inputActions.ActionMap.HorizontalMovement.performed += context => { EventCenter.Instance.EventTrigger(EventType.Event_Input_HorizontalMovement, context.ReadValue<float>()); };
         inputActions.ActionMap.HorizontalMovement.canceled += context => { EventCenter.Instance.EventTrigger(EventType.Event_Input_HorizontalMovement, context.ReadValue<float>()); };
         inputActions.ActionMap.Jump.performed += context => { EventCenter.Instance.EventTrigger(EventType.Event_Input_Jump); };
+        inputActions.ActionMap.Interact.performed += context => { EventCenter.Instance.EventTrigger(EventType.Event_Input_Interact); };
     }
 
     void OnDisable() => inputActions.Disable();

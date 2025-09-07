@@ -3,13 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum EventType
-{
-    Event_None,
-    Event_Input_HorizontalMovement,
-    Event_Input_Jump,
-}
-
+//事件中心
 public class EventCenter : Singleton<EventCenter>
 {
     readonly Dictionary<EventType, UnityAction<object>> eventDic = new();

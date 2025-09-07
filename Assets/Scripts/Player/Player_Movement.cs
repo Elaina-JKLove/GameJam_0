@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //处理玩家移动
-public class PlayerMovement : MonoBehaviour
+public class Player_Movement : MonoBehaviour
 {
     #region Private Variables
 
@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     [SerializeField] Transform groundCheckPoint;
     [SerializeField] float groundCheckDistance;
+
+    //墙面探测
     bool isOnWall;
     [SerializeField] Transform wallCheckPoint;
     [SerializeField] float wallCheckDistance;
@@ -48,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
         //地面探测
         isGrounded = false;
         groundCheckDistance = 0.01f;
+
+        //墙面探测
         isOnWall = false;
         wallCheckDistance = 0.01f;
     }
@@ -108,12 +112,12 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         //处理地面探测
-        isGrounded = Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckDistance, GameLayers.GroundLayerMask);
+        isGrounded = Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckDistance, GameLayer.GroundLayerMask);
         //如果接触到地面则重置可跳跃次数
         if (isGrounded) canJumpCount = maxJumpCount;
 
         //处理墙面检测
-        isOnWall = Physics2D.Raycast(wallCheckPoint.position, Vector2.right * facingDir, wallCheckDistance, GameLayers.GroundLayerMask);
+        isOnWall = Physics2D.Raycast(wallCheckPoint.position, Vector2.right * facingDir, wallCheckDistance, GameLayer.GroundLayerMask);
         if (isOnWall) Debug.Log("接触墙面");
     }
 

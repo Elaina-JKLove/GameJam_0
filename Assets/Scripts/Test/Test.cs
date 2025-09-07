@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class Test : MonoBehaviour
 {
-    void OnCollisionEnter2D(Collision2D collision)
+    void Update()
     {
-        Debug.Log("Collision");
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            // UIMgr.Instance.ShowUI<UI_Loading>(UITypes.UI_Loading);
+        }
     }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        Debug.Log("Trigger");
-    }
-
-    //Test
 }
