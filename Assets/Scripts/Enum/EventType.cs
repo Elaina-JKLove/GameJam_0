@@ -9,6 +9,7 @@ public enum EventType
     //输入
     Event_Input_HorizontalMovement,
     Event_Input_Jump,
+    Event_Input_Dash,
     Event_Input_Interact,
 
     //音效

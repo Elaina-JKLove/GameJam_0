@@ -33,8 +33,6 @@ public class UIMgr : MonoSingleton<UIMgr>
         });
     }
 
-
-
     #region  Public Methods
 
     public void ShowUI<T>(UIType uIType, UnityAction<T> unityAction = null) where T : UI_Base
@@ -74,6 +72,14 @@ public class UIMgr : MonoSingleton<UIMgr>
     {
         if (Dic_UI.ContainsKey(uIType)) return Dic_UI[uIType] as T;
         return null;
+    }
+
+    public void Clear()
+    {
+        foreach (var uI in Dic_UI)
+        {
+            HideUI(uI.Key);
+        }
     }
 
     #endregion

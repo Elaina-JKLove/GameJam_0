@@ -7,15 +7,28 @@ using UnityEngine.SceneManagement;
 //场景管理器
 public class ScenesMgr : MonoSingleton<ScenesMgr>
 {
+    #region  Public Methods
+
     //异步加载场景
     public void LoadScene(SceneType sceneType, UnityAction unityAction = null)
     {
+        //场景转换清空内存池
+        PoolMgr.Instance.Clear();
+        //场景转换清空UI
+        UIMgr.Instance.Clear();
+        //场景转换禁用输入
+        InputMgr.Instance.Disable();
+
         //过渡UI淡入后启动场景加载
         UIMgr.Instance.ShowUI<UI_Loading>(UIType.UI_Loading, (obj) =>
         {
             StartCoroutine(LoadSceneCor(sceneType, unityAction));
         });
     }
+
+    #endregion
+
+    #region  Private Methods
 
     IEnumerator LoadSceneCor(SceneType sceneType, UnityAction unityAction = null)
     {
@@ -40,5 +53,10 @@ public class ScenesMgr : MonoSingleton<ScenesMgr>
 
         //过渡UI淡出
         UIMgr.Instance.HideUI(UIType.UI_Loading, () => { unityAction?.Invoke(); });
+
+        //场景转换完成启用输入
+        InputMgr.Instance.Enable();
     }
+
+    #endregion
 }

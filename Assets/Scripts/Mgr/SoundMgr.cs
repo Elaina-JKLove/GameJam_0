@@ -29,11 +29,11 @@ public class SoundMgr : MonoSingleton<SoundMgr>
     {
     }
 
-
+    #region  Public Methods
 
     public void PlaySound(SoundType soundType)
     {
-        ResMgr.Instance.LoadRes<AudioClip>("Sounds/" + soundType.ToString(), (clip) =>
+        ResMgr.Instance.LoadRes<AudioClip>("Sound/" + soundType.ToString(), (clip) =>
         {
             AudioSource sound = this.AddComponent<AudioSource>();
             sound.clip = clip;
@@ -67,7 +67,9 @@ public class SoundMgr : MonoSingleton<SoundMgr>
         }
     }
 
+    #endregion
 
+    #region  Private Methods
 
     //帧检测播放完毕的音效组件销毁
     void RemovePlayedSounds()
@@ -81,4 +83,6 @@ public class SoundMgr : MonoSingleton<SoundMgr>
             }
         }
     }
+
+    #endregion
 }

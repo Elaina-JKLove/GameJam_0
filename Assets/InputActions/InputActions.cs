@@ -110,6 +110,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""54f062dd-491b-4a87-aaea-db0874b8aa29"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Interact"",
                     ""type"": ""Button"",
                     ""id"": ""8b459741-861c-4fd6-8a25-4627d845c31f"",
@@ -166,6 +175,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c6f885a9-8e26-4390-89b6-53081a7e9411"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""bfcedadf-1dbb-4ba3-ad4a-17233210605f"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -184,6 +204,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_ActionMap = asset.FindActionMap("ActionMap", throwIfNotFound: true);
         m_ActionMap_HorizontalMovement = m_ActionMap.FindAction("HorizontalMovement", throwIfNotFound: true);
         m_ActionMap_Jump = m_ActionMap.FindAction("Jump", throwIfNotFound: true);
+        m_ActionMap_Dash = m_ActionMap.FindAction("Dash", throwIfNotFound: true);
         m_ActionMap_Interact = m_ActionMap.FindAction("Interact", throwIfNotFound: true);
     }
 
@@ -267,6 +288,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private List<IActionMapActions> m_ActionMapActionsCallbackInterfaces = new List<IActionMapActions>();
     private readonly InputAction m_ActionMap_HorizontalMovement;
     private readonly InputAction m_ActionMap_Jump;
+    private readonly InputAction m_ActionMap_Dash;
     private readonly InputAction m_ActionMap_Interact;
     /// <summary>
     /// Provides access to input actions defined in input action map "ActionMap".
@@ -287,6 +309,10 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "ActionMap/Jump".
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_ActionMap_Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "ActionMap/Dash".
+        /// </summary>
+        public InputAction @Dash => m_Wrapper.m_ActionMap_Dash;
         /// <summary>
         /// Provides access to the underlying input action "ActionMap/Interact".
         /// </summary>
@@ -323,6 +349,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
+            @Dash.started += instance.OnDash;
+            @Dash.performed += instance.OnDash;
+            @Dash.canceled += instance.OnDash;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
@@ -343,6 +372,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
+            @Dash.started -= instance.OnDash;
+            @Dash.performed -= instance.OnDash;
+            @Dash.canceled -= instance.OnDash;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
@@ -400,6 +432,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnDash(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

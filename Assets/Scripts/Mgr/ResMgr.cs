@@ -6,11 +6,17 @@ using UnityEngine.Events;
 //资源管理器
 public class ResMgr : MonoSingleton<ResMgr>
 {
+    #region  Public Methods
+
     //异步加载资源
     public void LoadRes<T>(string resName, UnityAction<T> unityAction = null) where T : Object
     {
         StartCoroutine(LoadResCor<T>(resName, unityAction));
     }
+
+    #endregion
+
+    #region  Private Methods
 
     IEnumerator LoadResCor<T>(string resName, UnityAction<T> unityAction = null) where T : Object
     {
@@ -21,4 +27,6 @@ public class ResMgr : MonoSingleton<ResMgr>
         if (rr.asset is GameObject) unityAction?.Invoke(GameObject.Instantiate(rr.asset) as T);
         else unityAction?.Invoke(rr.asset as T);
     }
+    
+    #endregion
 }

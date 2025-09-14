@@ -24,11 +24,11 @@ public class MusicMgr : MonoSingleton<MusicMgr>
     {
     }
 
-
+    #region  Public Methods
 
     public void PlayBGM(MusicType musicType)
     {
-        ResMgr.Instance.LoadRes<AudioClip>("Musics/" + musicType.ToString(), (clip) =>
+        ResMgr.Instance.LoadRes<AudioClip>("Music/" + musicType.ToString(), (clip) =>
         {
             bgm.clip = clip;
             bgm.loop = true;//循环播放
@@ -55,4 +55,6 @@ public class MusicMgr : MonoSingleton<MusicMgr>
         //改变动态音量
         if (bgm) bgm.volume = volume;
     }
+    
+    #endregion
 }

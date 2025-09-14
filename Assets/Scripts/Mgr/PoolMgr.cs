@@ -9,6 +9,10 @@ public class PoolMgr : Singleton<PoolMgr>
     Transform pool;//作为各类缓存池对象的父对象
     Dictionary<PoolObjType, PoolObj> Dic_Pool = new();
 
+
+
+    #region  Public Methods
+
     public void GetObj(PoolObjType poolObjType, UnityAction<GameObject> unityAction = null)
     {
         if (Dic_Pool.ContainsKey(poolObjType) && Dic_Pool[poolObjType].poolList.Count > 0)
@@ -18,7 +22,7 @@ public class PoolMgr : Singleton<PoolMgr>
         else
         {
             //若缓存池中不存在所请求的对象，则生成一个对象并返回
-            ResMgr.Instance.LoadRes<GameObject>("PoolObjs/" + poolObjType.ToString(), (obj) =>
+            ResMgr.Instance.LoadRes<GameObject>("PoolObj/" + poolObjType.ToString(), (obj) =>
             {
                 obj.name = poolObjType.ToString();
                 unityAction?.Invoke(obj);
@@ -46,6 +50,8 @@ public class PoolMgr : Singleton<PoolMgr>
         Dic_Pool.Clear();
         pool = null;
     }
+
+    #endregion
 }
 
 //缓存池对象类
@@ -53,6 +59,10 @@ public class PoolObj
 {
     Transform parent;//作为此类缓存池对象的父对象
     public List<GameObject> poolList;
+
+
+
+    #region  Public Methods
 
     public PoolObj(PoolObjType poolObjType, Transform pool, GameObject obj)
     {
@@ -79,4 +89,6 @@ public class PoolObj
         obj.transform.SetParent(parent);
         obj.SetActive(false);
     }
+
+    #endregion
 }

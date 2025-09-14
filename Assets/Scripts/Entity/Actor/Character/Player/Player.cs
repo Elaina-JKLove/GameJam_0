@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player_Animator : MonoBehaviour
+//集合玩家相关脚本
+public class Player : Character
 {
-   
 }
