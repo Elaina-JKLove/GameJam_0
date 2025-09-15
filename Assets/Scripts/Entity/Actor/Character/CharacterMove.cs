@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
+    public Rigidbody2D Rb => rb;
     public int FacingDir => facingDir;
     public float MoveSpeed => moveSpeed;
+    public float AirDrag => airDrag;
     public float DashSpeed => dashSpeed;
     public float DashDuration => dashDuration;
     public float JumpForce => jumpForce;
     public bool IsGrounded => isGrounded;
+    public bool IsWall => isWall;
 
 
 
@@ -19,6 +22,7 @@ public class CharacterMove : MonoBehaviour
     //移动
     protected int facingDir;
     protected float moveSpeed;
+    protected float airDrag;
 
     //冲刺
     protected float dashSpeed;
@@ -38,7 +42,7 @@ public class CharacterMove : MonoBehaviour
     protected float groundCheckDistance;
 
     //墙面探测
-    protected bool isOnWall;
+    protected bool isWall;
     [SerializeField] protected Transform wallCheckPoint;
     protected float wallCheckDistance;
 
@@ -48,20 +52,25 @@ public class CharacterMove : MonoBehaviour
     {
         //Cache
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 2f;
+
+        //移动
+        facingDir = 1;
+        airDrag = 0.8f;
 
         //地面探测
         isGrounded = false;
         groundCheckDistance = 0.01f;
 
         //墙面探测
-        isOnWall = false;
+        isWall = false;
         wallCheckDistance = 0.01f;
     }
 
-    void Update()
+    protected virtual void Update()
     {
         HandleDashTimer();
+        HandleGroundDetection();
+        HandleWallDetection();
     }
 
     #region Public Methods
@@ -80,6 +89,8 @@ public class CharacterMove : MonoBehaviour
 
     public bool CanJump() => canJumpCount > 0;
 
+    public void ResetJumpCount() => canJumpCount = maxJumpCount;
+
     public void ReduceJumpCount(int value = 1) => canJumpCount -= value;
 
     public bool CanDash() => canDash;
@@ -91,6 +102,9 @@ public class CharacterMove : MonoBehaviour
     #endregion
 
     #region Protected Methods
+
+    //处理墙面探测
+    protected void HandleWallDetection() => isWall = Physics2D.Raycast(wallCheckPoint.position, Vector2.right * facingDir, wallCheckDistance, GameLayer.GroundLayerMask);
 
     #endregion
 
@@ -117,17 +131,8 @@ public class CharacterMove : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        //处理地面探测
-        isGrounded = Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckDistance, GameLayer.GroundLayerMask);
-        //如果接触到地面则重置可跳跃次数
-        if (isGrounded) canJumpCount = maxJumpCount;
-
-        //处理墙面检测
-        isOnWall = Physics2D.Raycast(wallCheckPoint.position, Vector2.right * facingDir, wallCheckDistance, GameLayer.GroundLayerMask);
-        if (isOnWall) Debug.Log("接触墙面");
-    }
+    //处理地面探测
+    void HandleGroundDetection() => isGrounded = Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckDistance, GameLayer.GroundLayerMask);
 
     #endregion
 }

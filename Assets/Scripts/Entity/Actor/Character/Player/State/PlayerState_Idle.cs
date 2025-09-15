@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerState_Idle : BaseState
+public class PlayerState_Idle : PlayerState_Ground
 {
     public PlayerState_Idle(Character character, Animator animator, string animBoolName) : base(character, animator, animBoolName)
     {
