@@ -11,7 +11,7 @@ public class PlayerState_WallSliding : BaseState
     public override void Enter()
     {
         base.Enter();
-        
+
         //进入抓墙状态重置可跳跃次数
         character.CharacterMove.ResetJumpCount();
     }
@@ -20,6 +20,9 @@ public class PlayerState_WallSliding : BaseState
     {
         base.Update();
 
+        (character.CharacterMove as PlayerMove).HandleWallSliding();
+
+        if (!(character.CharacterMove as PlayerMove).IsOnWall) character.CharacterState.ChangeState(character.CharacterState.FallState);
         //抓墙状态下接触到地面时解除抓墙状态，转为地面闲置状态
         if (character.CharacterMove.IsGrounded) character.CharacterState.ChangeState(character.CharacterState.IdleState);
     }

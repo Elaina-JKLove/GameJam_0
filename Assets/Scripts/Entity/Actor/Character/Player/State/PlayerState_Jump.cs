@@ -11,7 +11,7 @@ public class PlayerState_Jump : PlayerState_Air
     public override void Enter()
     {
         base.Enter();
-        
-        character.CharacterMove.SetVelocityY(character.CharacterMove.JumpForce);
+
+        character.CharacterMove.HandleJump();
     }
 }

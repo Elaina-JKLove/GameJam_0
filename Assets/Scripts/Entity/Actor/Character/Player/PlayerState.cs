@@ -35,10 +35,10 @@ public class PlayerState : CharacterState
 
     void TryChangeStateToJump(object obj)
     {
-        if (character.CharacterMove.CanJump() && CurrentState != character.CharacterState.DashState)
+        if (character.CharacterMove.CanJump() && CurrentState != dashState)
         {
             character.CharacterMove.ReduceJumpCount();
-            if (CurrentState == character.CharacterState.WallSlidingState) ChangeState(wallJumpState);
+            if (CurrentState == wallSlidingState) ChangeState(wallJumpState);
             else ChangeState(jumpState);
         }
     }

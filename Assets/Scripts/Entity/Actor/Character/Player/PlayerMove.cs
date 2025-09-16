@@ -7,13 +7,15 @@ public class PlayerMove : CharacterMove
 {
     public float Input_HorizontalMovement => input_HorizontalMovement;
     public bool IsOnWall => isOnWall;
+    public float OnWallDrag => onWallDrag;
 
 
 
     float input_HorizontalMovement;
 
-    //抓墙探测
+    //抓墙
     bool isOnWall;
+    float onWallDrag;//抓墙下滑时的阻力
 
 
 
@@ -21,7 +23,7 @@ public class PlayerMove : CharacterMove
     {
         base.Awake();
 
-        rb.gravityScale = 2;
+        rb.gravityScale = 3;
 
         //移动
         moveSpeed = 5f;
@@ -34,12 +36,13 @@ public class PlayerMove : CharacterMove
         canDash = true;
 
         //跳跃
-        jumpForce = 7.5f;
+        jumpForce = 10f;
         maxJumpCount = 1;
         canJumpCount = maxJumpCount;
 
-        //抓墙探测
+        //抓墙
         isOnWall = false;
+        onWallDrag = 0.8f;
     }
 
     void OnEnable()
@@ -58,6 +61,18 @@ public class PlayerMove : CharacterMove
     {
         EventCenter.Instance.RemoveEventListener(EventType.Event_Input_HorizontalMovement, SetInput_HorizontalMovement);
     }
+
+    #region  Public Methods
+
+    public override void HandleHorizontalMove() => SetVelocityX(input_HorizontalMovement * moveSpeed);
+
+    public override void HandleAirHorizontalMove() => SetVelocityX(input_HorizontalMovement * moveSpeed * airDrag);
+
+    public void HandleWallJump() => SetVelocity(-facingDir * jumpForce * 0.5f, jumpForce);
+
+    public void HandleWallSliding() => SetVelocityY(rb.velocity.y * onWallDrag);
+
+    #endregion
 
     #region  Private Methods
 

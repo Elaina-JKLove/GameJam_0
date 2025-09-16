@@ -25,7 +25,7 @@ public class PlayerState_Dash : BaseState
     {
         base.Update();
 
-        character.CharacterMove.SetVelocity(character.CharacterMove.DashSpeed * dashDir, 0);
+        character.CharacterMove.HandleDash(dashDir);
 
         if (stateTimer <= 0)
         {

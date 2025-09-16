@@ -12,7 +12,7 @@ public class PlayerState_Move : PlayerState_Ground
     {
         base.Update();
 
-        character.CharacterMove.SetVelocityX((character.CharacterMove as PlayerMove).Input_HorizontalMovement * character.CharacterMove.MoveSpeed);
+        character.CharacterMove.HandleHorizontalMove();
 
         if ((character.CharacterMove as PlayerMove).Input_HorizontalMovement == 0) character.CharacterState.ChangeState(character.CharacterState.IdleState);
     }

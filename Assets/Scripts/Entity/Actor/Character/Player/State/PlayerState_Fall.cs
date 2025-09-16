@@ -13,5 +13,6 @@ public class PlayerState_Fall : PlayerState_Air
         base.Update();
 
         if (character.CharacterMove.IsGrounded) character.CharacterState.ChangeState(character.CharacterState.IdleState);
+        if ((character.CharacterMove as PlayerMove).IsOnWall) character.CharacterState.ChangeState(character.CharacterState.WallSlidingState);
     }
 }

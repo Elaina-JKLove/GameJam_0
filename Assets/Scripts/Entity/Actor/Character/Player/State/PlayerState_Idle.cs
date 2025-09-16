@@ -12,7 +12,7 @@ public class PlayerState_Idle : PlayerState_Ground
     {
         base.Enter();
 
-        character.CharacterMove.SetVelocity(0, 0);
+        character.CharacterMove.HandleIdle();
     }
 
     public override void Update()

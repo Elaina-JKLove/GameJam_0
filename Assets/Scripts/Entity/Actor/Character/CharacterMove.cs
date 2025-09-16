@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterMove : MonoBehaviour
 {
+    public Collider2D Col => col;
     public Rigidbody2D Rb => rb;
     public int FacingDir => facingDir;
     public float MoveSpeed => moveSpeed;
@@ -17,6 +18,7 @@ public class CharacterMove : MonoBehaviour
 
 
     //Cache
+    protected Collider2D col;
     protected Rigidbody2D rb;
 
     //移动
@@ -51,6 +53,7 @@ public class CharacterMove : MonoBehaviour
     protected virtual void Awake()
     {
         //Cache
+        col = GetComponent<Collider2D>();
         rb = GetComponent<Rigidbody2D>();
 
         //移动
@@ -75,23 +78,21 @@ public class CharacterMove : MonoBehaviour
 
     #region Public Methods
 
-    public void SetVelocity(float xVelocity, float yVelocity)
-    {
-        rb.velocity = new Vector2(xVelocity, yVelocity);
+    public void HandleIdle() => SetVelocity(0, 0);
 
-        //移动方向和面朝方向相反时水平翻转
-        if (xVelocity * facingDir < 0) Flip();
-    }
+    public virtual void HandleHorizontalMove() { }
 
-    public void SetVelocityX(float xVelocity) => SetVelocity(xVelocity, rb.velocity.y);
+    public virtual void HandleAirHorizontalMove() { }
 
-    public void SetVelocityY(float yVelocity) => SetVelocity(rb.velocity.x, yVelocity);
+    public void HandleJump() => SetVelocityY(jumpForce);
 
     public bool CanJump() => canJumpCount > 0;
 
     public void ResetJumpCount() => canJumpCount = maxJumpCount;
 
     public void ReduceJumpCount(int value = 1) => canJumpCount -= value;
+
+    public void HandleDash(int dashDir) => SetVelocity(dashSpeed * dashDir, 0);
 
     public bool CanDash() => canDash;
 
@@ -102,6 +103,18 @@ public class CharacterMove : MonoBehaviour
     #endregion
 
     #region Protected Methods
+
+    protected void SetVelocity(float xVelocity, float yVelocity)
+    {
+        rb.velocity = new Vector2(xVelocity, yVelocity);
+
+        //移动方向和面朝方向相反时水平翻转
+        if (xVelocity * facingDir < 0) Flip();
+    }
+
+    protected void SetVelocityX(float xVelocity) => SetVelocity(xVelocity, rb.velocity.y);
+
+    protected void SetVelocityY(float yVelocity) => SetVelocity(rb.velocity.x, yVelocity);
 
     //处理墙面探测
     protected void HandleWallDetection() => isWall = Physics2D.Raycast(wallCheckPoint.position, Vector2.right * facingDir, wallCheckDistance, GameLayer.GroundLayerMask);
