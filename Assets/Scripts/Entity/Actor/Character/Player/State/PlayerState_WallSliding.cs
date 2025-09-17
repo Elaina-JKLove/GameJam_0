@@ -12,8 +12,10 @@ public class PlayerState_WallSliding : BaseState
     {
         base.Enter();
 
-        //进入抓墙状态重置可跳跃次数
+        //进入抓墙状态则重置可跳跃次数
         character.CharacterMove.ResetJumpCount();
+        //进入抓墙状态则重置可冲刺
+        character.CharacterMove.SetCanDash(true);
     }
 
     public override void Update()

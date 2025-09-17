@@ -29,8 +29,6 @@ public class CharacterMove : MonoBehaviour
     //冲刺
     protected float dashSpeed;
     protected float dashDuration;
-    protected float dashCooldown;
-    protected float dashCooldownTimer;
     protected bool canDash;
 
     //跳跃
@@ -71,7 +69,6 @@ public class CharacterMove : MonoBehaviour
 
     protected virtual void Update()
     {
-        HandleDashTimer();
         HandleGroundDetection();
         HandleWallDetection();
     }
@@ -128,20 +125,6 @@ public class CharacterMove : MonoBehaviour
     {
         transform.Rotate(0, 180, 0);
         facingDir = -facingDir;
-    }
-
-    //处理冲刺冷却
-    void HandleDashTimer()
-    {
-        if (!canDash)
-        {
-            dashCooldownTimer -= Time.deltaTime;
-            if (dashCooldownTimer <= 0)
-            {
-                canDash = true;
-                dashCooldownTimer = dashCooldown;
-            }
-        }
     }
 
     //处理地面探测

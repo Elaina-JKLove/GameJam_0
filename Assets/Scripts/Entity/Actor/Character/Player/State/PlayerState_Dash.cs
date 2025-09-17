@@ -14,6 +14,9 @@ public class PlayerState_Dash : BaseState
     {
         base.Enter();
 
+        //冲刺状态时不能叠加冲刺
+        character.CharacterMove.SetCanDash(false);
+
         int input_HorizontalMovement = (int)(character.CharacterMove as PlayerMove).Input_HorizontalMovement;
         //冲刺时优先使用输入方向而非玩家面对方向
         dashDir = input_HorizontalMovement != 0 ? input_HorizontalMovement : character.CharacterMove.FacingDir;
@@ -31,12 +34,5 @@ public class PlayerState_Dash : BaseState
         {
             character.CharacterState.ChangeState(character.CharacterState.FallState);
         }
-    }
-
-    public override void Exit()
-    {
-        base.Exit();
-
-        character.CharacterMove.SetCanDash(false);
     }
 }

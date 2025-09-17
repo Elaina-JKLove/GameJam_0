@@ -31,8 +31,6 @@ public class PlayerMove : CharacterMove
         //冲刺
         dashSpeed = 20f;
         dashDuration = 0.25f;
-        dashCooldown = 0f;
-        dashCooldownTimer = dashCooldown;
         canDash = true;
 
         //跳跃

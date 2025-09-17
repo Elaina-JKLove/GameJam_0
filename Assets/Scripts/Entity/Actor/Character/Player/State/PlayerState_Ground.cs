@@ -14,5 +14,7 @@ public class PlayerState_Ground : BaseState
 
         //接触到地面则重置可跳跃次数
         character.CharacterMove.ResetJumpCount();
+        //接触到地面则重置可冲刺
+        character.CharacterMove.SetCanDash(true);
     }
 }
