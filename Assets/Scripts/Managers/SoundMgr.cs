@@ -33,7 +33,7 @@ public class SoundMgr : MonoSingleton<SoundMgr>
 
     public void PlaySound(SoundType soundType)
     {
-        ResMgr.Instance.LoadRes<AudioClip>("Sound/" + soundType.ToString(), (clip) =>
+        ResMgr.Instance.LoadRes<AudioClip>("Sounds/" + soundType.ToString(), (clip) =>
         {
             AudioSource sound = this.AddComponent<AudioSource>();
             sound.clip = clip;

@@ -17,8 +17,8 @@ public class CharacterState : MonoBehaviour
 
 
     //动画机参数名
-    protected const string ANIM_BOOL__IDLE = "Idle";
-    protected const string ANIM_BOOL__MOVE = "Move";
+    protected const string ANIM_BOOL__IDLE_AND_MOVE = "IdleAndMove";
+    protected const string ANIM_FLOAT__VELOCITY_X = "VelocityX";
     protected const string ANIM_BOOL__JUMP_AND_FALL = "JumpAndFall";
     protected const string ANIM_FLOAT__VELOCITY_Y = "VelocityY";
     protected const string ANIM_BOOL__DASH = "Dash";
@@ -62,6 +62,7 @@ public class CharacterState : MonoBehaviour
         if (character.CharacterMove.IsFall() && CurrentState != wallSlidingState) ChangeState(fallState);
         //if(玩家死亡) ChangeState(deathState);
 
+        animator.SetFloat(ANIM_FLOAT__VELOCITY_X, character.CharacterMove.Rb.velocity.x);
         animator.SetFloat(ANIM_FLOAT__VELOCITY_Y, character.CharacterMove.Rb.velocity.y);
     }
 

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : Actor
+public class Character : Entity
 {
     public CharacterMove CharacterMove => characterMove;
     public CharacterAnimator CharacterAnimator => characterAnimator;

@@ -22,7 +22,7 @@ public class PoolMgr : Singleton<PoolMgr>
         else
         {
             //若缓存池中不存在所请求的对象，则生成一个对象并返回
-            ResMgr.Instance.LoadRes<GameObject>("PoolObj/" + poolObjType.ToString(), (obj) =>
+            ResMgr.Instance.LoadRes<GameObject>("Prefabs/PoolObjs/" + poolObjType.ToString(), (obj) =>
             {
                 obj.name = poolObjType.ToString();
                 unityAction?.Invoke(obj);

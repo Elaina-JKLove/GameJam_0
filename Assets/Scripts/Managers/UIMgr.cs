@@ -19,14 +19,14 @@ public class UIMgr : MonoSingleton<UIMgr>
         Dic_UI = new Dictionary<UIType, UI_Base>();
         fadeDuration = 0.5f;
 
-        ResMgr.Instance.LoadRes<GameObject>("UI/Canvas", (obj) =>
+        ResMgr.Instance.LoadRes<GameObject>("Prefabs/UI/Canvas", (obj) =>
         {
             obj.name = "Canvas";
             canvas = obj.GetComponent<RectTransform>();
             GameObject.DontDestroyOnLoad(obj);
         });
 
-        ResMgr.Instance.LoadRes<GameObject>("UI/EventSystem", (obj) =>
+        ResMgr.Instance.LoadRes<GameObject>("Prefabs/UI/EventSystem", (obj) =>
         {
             obj.name = "EventSystem";
             GameObject.DontDestroyOnLoad(obj);
@@ -44,7 +44,7 @@ public class UIMgr : MonoSingleton<UIMgr>
             return;
         }
 
-        ResMgr.Instance.LoadRes<GameObject>("UI/" + uIType.ToString(), (obj) =>
+        ResMgr.Instance.LoadRes<GameObject>("Prefabs/UI/" + uIType.ToString(), (obj) =>
         {
             obj.transform.SetParent(canvas);
             obj.transform.localPosition = Vector3.zero;

@@ -9,8 +9,8 @@ public class PlayerState : CharacterState
     {
         base.Awake();
 
-        idleState = new PlayerState_Idle(character, animator, ANIM_BOOL__IDLE);
-        moveState = new PlayerState_Move(character, animator, ANIM_BOOL__MOVE);
+        idleState = new PlayerState_Idle(character, animator, ANIM_BOOL__IDLE_AND_MOVE);
+        moveState = new PlayerState_Move(character, animator, ANIM_BOOL__IDLE_AND_MOVE);
         jumpState = new PlayerState_Jump(character, animator, ANIM_BOOL__JUMP_AND_FALL);
         fallState = new PlayerState_Fall(character, animator, ANIM_BOOL__JUMP_AND_FALL);
         dashState = new PlayerState_Dash(character, animator, ANIM_BOOL__DASH);
